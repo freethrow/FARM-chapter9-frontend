@@ -33,8 +33,6 @@ const BrandCount = () => {
     ],
   };
 
-  console.log(chartData);
-
   return (
     <div className="w-full my-5 shadow-md">
       <h1 className=" text-red-700 font-bold text-center">

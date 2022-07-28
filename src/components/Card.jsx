@@ -4,11 +4,13 @@ const Card = ({ car }) => {
   const { make, brand, km, cm3, price, year } = car;
 
   return (
-    <div className=" shadow-md rounded-md flex flex-col justify-center p-5">
-      <div>
-        {brand} - {make}
+    <div className=" shadow-md rounded-md flex flex-col justify-center p-2 bg-green-100 items-center">
+      <div className="font-bold">
+        {brand} - {make} ({cm3}cm3)
       </div>
-      <div>{km} Km</div>
+      <div>
+        {km} Km / Year: {year}
+      </div>
       <div>Price: {price} eur</div>
     </div>
   );

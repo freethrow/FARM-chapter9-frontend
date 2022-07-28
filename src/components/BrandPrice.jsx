@@ -10,6 +10,8 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
+
+import CarsDropdown from "./CarsDropdown";
 import { Bar } from "react-chartjs-2";
 
 ChartJS.register(
@@ -60,14 +62,9 @@ const BrandPrice = () => {
       <h1 className=" text-red-700 font-bold text-center">
         Price by model for a given brand
       </h1>
+
       <div className=" w-full text-center">
-        <select onChange={(event) => setBrand(event.target.value)}>
-          <option value="Fiat">Fiat</option>
-          <option value="Opel">Opel</option>
-          <option value="Renault">Renault</option>
-          <option value="VW">VolksWagen</option>
-          <option value="Ford">Ford</option>
-        </select>
+        <CarsDropdown selectHandler={(event) => setBrand(event.target.value)} />
       </div>
 
       <div className="p-5 min-w-full">

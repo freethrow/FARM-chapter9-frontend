@@ -5,6 +5,7 @@ import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import { Pie } from "react-chartjs-2";
 
 import { interpolateGnBu } from "d3-scale-chromatic";
+import CarsDropdown from "./CarsDropdown";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -41,13 +42,9 @@ const ModelCount = () => {
       <h1 className=" text-red-700 font-bold text-center">
         Number of vehicles by model for a given brand
       </h1>
-      <select onChange={(event) => setBrand(event.target.value)}>
-        <option value="Fiat">Fiat</option>
-        <option value="Opel">Opel</option>
-        <option value="Renault">Renault</option>
-        <option value="VW">VolksWagen</option>
-        <option value="Ford">Ford</option>
-      </select>
+      <div className=" w-full text-center">
+        <CarsDropdown selectHandler={(event) => setBrand(event.target.value)} />
+      </div>
 
       <div className="p-5 min-w-full">
         <Pie data={chartData} />

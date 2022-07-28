@@ -11,6 +11,7 @@ import {
   Legend,
 } from "chart.js";
 import { Bar } from "react-chartjs-2";
+import CarsDropdown from "./CarsDropdown";
 
 ChartJS.register(
   CategoryScale,
@@ -60,13 +61,9 @@ const BrandKm = () => {
       <h1 className=" text-red-700 font-bold text-center">
         Km by model for a given brand
       </h1>
-      <select onChange={(event) => setBrand(event.target.value)}>
-        <option value="Fiat">Fiat</option>
-        <option value="Opel">Opel</option>
-        <option value="Renault">Renault</option>
-        <option value="VW">VolksWagen</option>
-        <option value="Ford">Ford</option>
-      </select>
+      <div className=" w-full text-center">
+        <CarsDropdown selectHandler={(event) => setBrand(event.target.value)} />
+      </div>
       <div className="p-5 min-w-full">
         <Bar options={options} data={chartData} />
       </div>
