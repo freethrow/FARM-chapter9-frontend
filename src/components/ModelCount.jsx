@@ -43,7 +43,10 @@ const ModelCount = () => {
         Number of vehicles by model for a given brand
       </h1>
       <div className=" w-full text-center">
-        <CarsDropdown selectHandler={(event) => setBrand(event.target.value)} />
+        <CarsDropdown
+          selectHandler={(event) => setBrand(event.target.value)}
+          elValue={brand}
+        />
       </div>
 
       <div className="p-5 min-w-full">
