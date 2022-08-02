@@ -1,7 +1,6 @@
-import BrandPrice from "./BrandPrice";
-import BrandKm from "./BrandKm";
 import BrandCount from "./BrandCount";
 import ModelCount from "./ModelCount";
+import BrandValue from "./BrandValue";
 
 const Dashboard = () => {
   return (
@@ -10,8 +9,10 @@ const Dashboard = () => {
         DashBoard
       </h1>
       <div className="grid 2xl:grid-cols-2 gap-2">
-        <BrandPrice />
-        <BrandKm />
+        <BrandValue val={"price"} />
+        <BrandValue val={"km"} />
+        <BrandValue val={"cm3"} />
+        <BrandValue val={"year"} />
         <BrandCount />
         <ModelCount />
       </div>

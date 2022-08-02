@@ -14,7 +14,7 @@ const fetcher = (...args) => fetch(...args).then((res) => res.json());
 const ModelCount = () => {
   const [brand, setBrand] = useState("Fiat");
   const { data, error } = useSWR(
-    `http://127.0.0.1:8000/cars/make/count/${brand}`,
+    `${process.env.REACT_APP_API_URL}/cars/make/count/${brand}`,
     fetcher
   );
   if (error) return <div>failed to load</div>;

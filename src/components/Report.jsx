@@ -1,7 +1,7 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 const Report = () => {
-  const [email, setEmail] = useState("aleksendric@gmail.com");
+  const [email, setEmail] = useState("");
   const [carsNum, setCarsNum] = useState(10);
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
@@ -9,7 +9,7 @@ const Report = () => {
   const handleForm = async (e) => {
     e.preventDefault();
     setLoading(true);
-    const res = await fetch("http://127.0.0.1:8000/cars/email", {
+    const res = await fetch(`${process.env.REACT_APP_API_URL}/cars/email`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email, cars_num: carsNum }),
@@ -24,7 +24,7 @@ const Report = () => {
   return (
     <div className="w-full p-8 my-10">
       <h1 className="font-bold text-lg text-center p-8 border border-gray-500 w-full ">
-        Explore Cars
+        Generate Report
       </h1>
       <div className="flex flex-col justify-center items-center h-full py-5">
         {loading && (

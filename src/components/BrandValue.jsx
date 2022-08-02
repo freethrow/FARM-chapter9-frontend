@@ -10,9 +10,8 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
-
-import CarsDropdown from "./CarsDropdown";
 import { Bar } from "react-chartjs-2";
+import CarsDropdown from "./CarsDropdown";
 
 ChartJS.register(
   CategoryScale,
@@ -23,26 +22,38 @@ ChartJS.register(
   Legend
 );
 
-export const options = {
-  responsive: true,
-  plugins: {
-    legend: {
-      position: "top",
+export const options = (val) => {
+  let optObj = {
+    responsive: true,
+    plugins: {
+      legend: {
+        position: "top",
+      },
+      title: {
+        display: true,
+        text: `Average ${val} of car models by brand`,
+      },
     },
-    title: {
-      display: true,
-      text: "Average price of car models by brand",
-    },
-  },
+  };
+  if (val === "year") {
+    optObj["scales"] = {
+      y: {
+        min: 1980,
+      },
+    };
+  }
+  return optObj;
 };
 
 const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
-const BrandPrice = () => {
+const BrandValue = ({ val }) => {
+  const queryStr = `avg_${val}`;
+
   const [brand, setBrand] = useState("Fiat");
 
   const { data, error } = useSWR(
-    `http://127.0.0.1:8000/cars/brand/price/${brand}`,
+    `${process.env.REACT_APP_API_URL}/cars/brand/${val}/${brand}`,
     fetcher
   );
   if (error) return <div>failed to load</div>;
@@ -55,16 +66,16 @@ const BrandPrice = () => {
     datasets: [
       {
         label: brand,
-        data: data.map((item) => Math.round(item.avgPrice)),
-        hoverBackgroundColor: ["#FF9999"],
+        data: data.map((item) => Math.round(item[queryStr])),
+        hoverBackgroundColor: ["#B91C1C"],
       },
     ],
   };
 
   return (
-    <div className="w-full my-5 shadow-md">
+    <div className="w-full shadow-md my-5">
       <h1 className=" text-red-700 font-bold text-center">
-        Price by model for a given brand
+        {val.toUpperCase()} by model for a given brand - {brand}
       </h1>
 
       <div className=" w-full text-center">
@@ -73,12 +84,11 @@ const BrandPrice = () => {
           elValue={brand}
         />
       </div>
-
       <div className="p-5 min-w-full">
-        <Bar options={options} data={chartData} />
+        <Bar options={options(val)} data={chartData} />
       </div>
     </div>
   );
 };
 
-export default BrandPrice;
+export default BrandValue;

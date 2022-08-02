@@ -52,7 +52,11 @@ const BrandKm = () => {
       return item["_id"]["model"];
     }),
     datasets: [
-      { label: brand, data: data.map((item) => Math.round(item.avgKm)) },
+      {
+        label: brand,
+        data: data.map((item) => Math.round(item.avgKm)),
+        hoverBackgroundColor: ["#aaff99"],
+      },
     ],
   };
 
@@ -61,6 +65,7 @@ const BrandKm = () => {
       <h1 className=" text-red-700 font-bold text-center">
         Km by model for a given brand
       </h1>
+
       <div className=" w-full text-center">
         <CarsDropdown
           selectHandler={(event) => setBrand(event.target.value)}

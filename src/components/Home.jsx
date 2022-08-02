@@ -4,6 +4,7 @@ import useSWR from "swr";
 import Card from "./Card";
 import CarsDropdown from "./CarsDropdown";
 
+console.log(process.env);
 const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
 const Home = () => {
@@ -11,7 +12,14 @@ const Home = () => {
   const [brand, setBrand] = useState("");
 
   const { data, error } = useSWR(
-    `http://127.0.0.1:8000/cars?page=${pageIndex}&brand=${brand}`,
+    `${process.env.REACT_APP_API_URL}/cars?page=${pageIndex}&brand=${brand}`,
+    fetcher
+  );
+
+  const { nextData, nextError } = useSWR(
+    `${process.env.REACT_APP_API_URL}/cars?page=${
+      pageIndex + 1
+    }&brand=${brand}`,
     fetcher
   );
 
@@ -23,6 +31,9 @@ const Home = () => {
       <h1 className="font-bold text-lg text-center p-8 border border-gray-500">
         Explore Cars
       </h1>
+      <div className=" hidden">
+        {nextData} {nextError}
+      </div>
       <div className="flex flex-col lg:flex-row justify-between my-3">
         <CarsDropdown
           selectHandler={(event) => {
@@ -35,7 +46,7 @@ const Home = () => {
         <div className="">
           {pageIndex > 1 ? (
             <button
-              className=" bg-green-600 text-white font-bold p-3 m-1 rounded-md w-36 md:w-40"
+              className=" bg-red-800 text-white font-bold p-3 m-1 rounded-md w-36 md:w-40"
               onClick={() => setPageIndex(pageIndex - 1)}
             >
               Previous
@@ -45,7 +56,7 @@ const Home = () => {
           )}
           {pageIndex < data.pages ? (
             <button
-              className=" bg-green-600 text-white font-bold p-3 m-1 rounded-md w-36 md:w-48"
+              className=" bg-red-800 text-white font-bold p-3 m-1 rounded-md w-36 md:w-48"
               onClick={() => setPageIndex(pageIndex + 1)}
             >
               Next
@@ -66,7 +77,7 @@ const Home = () => {
         </div>
       </div>
 
-      <div className="grid grid-cols-4 md:grid-cols-5 gap-2">
+      <div className="grid grid-cols-4 md:grid-cols-5 gap-4">
         {data.results.map((car) => (
           <Card car={car} key={car._id} />
         ))}

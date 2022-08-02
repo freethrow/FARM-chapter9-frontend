@@ -1,4 +1,3 @@
-import { useState } from "react";
 import useSWR from "swr";
 
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
@@ -14,7 +13,7 @@ const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
 const BrandCount = () => {
   const { data, error } = useSWR(
-    `http://127.0.0.1:8000/cars/brand/count`,
+    `${process.env.REACT_APP_API_URL}/cars/brand/count`,
     fetcher
   );
   if (error) return <div>failed to load</div>;
@@ -28,7 +27,7 @@ const BrandCount = () => {
       {
         data: data.map((item) => item.count),
         backgroundColor: data.map((item, index) => colors[index]),
-        borderWidth: 5,
+        borderWidth: 3,
       },
     ],
   };
