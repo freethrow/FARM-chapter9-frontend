@@ -12,7 +12,8 @@ const Home = () => {
   const [brand, setBrand] = useState("");
 
   const { data, error } = useSWR(
-    `${process.env.REACT_APP_API_URL}/cars?page=${pageIndex}&brand=${brand}`,
+    `${process.env.REACT_APP_API_URL}/cars?page=${pageIndex}`,
+
     fetcher
   );
 
