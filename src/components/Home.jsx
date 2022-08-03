@@ -12,19 +12,18 @@ const Home = () => {
   const [brand, setBrand] = useState("");
 
   const { data, error } = useSWR(
-    `${process.env.REACT_APP_API_URL}/cars?page=${pageIndex}`,
-
+    `${process.env.REACT_APP_API_URL}/cars/all?page=${pageIndex}&brand=${brand}`,
     fetcher
   );
 
   const { nextData, nextError } = useSWR(
-    `${process.env.REACT_APP_API_URL}/cars?page=${
+    `${process.env.REACT_APP_API_URL}/cars/all?page=${
       pageIndex + 1
-    }&brand=${brand}`,
+    }&brand=${brand}/`,
     fetcher
   );
 
-  if (error) return <div>failed to load</div>;
+  if (error) return <div>`failed to load {process.env.REACT_APP_API_URL}`</div>;
   if (!data) return <div>loading...</div>;
 
   return (
