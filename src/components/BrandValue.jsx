@@ -56,6 +56,7 @@ const BrandValue = ({ val }) => {
     `${process.env.REACT_APP_API_URL}/cars/brand/${val}/${brand}`,
     fetcher
   );
+
   if (error) return <div>failed to load</div>;
   if (!data) return <div>loading...</div>;
 

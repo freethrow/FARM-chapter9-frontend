@@ -4,22 +4,21 @@ import useSWR from "swr";
 import Card from "./Card";
 import CarsDropdown from "./CarsDropdown";
 
-console.log(process.env);
 const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
 const Home = () => {
   const [pageIndex, setPageIndex] = useState(1);
   const [brand, setBrand] = useState("");
 
-  const { data, error } = useSWR(
-    `${process.env.REACT_APP_API_URL}/cars/all?page=${pageIndex}&brand=${brand}`,
-    fetcher
-  );
-
   const { nextData, nextError } = useSWR(
     `${process.env.REACT_APP_API_URL}/cars/all?page=${
       pageIndex + 1
-    }&brand=${brand}/`,
+    }&brand=${brand}`,
+    fetcher
+  );
+
+  const { data, error } = useSWR(
+    `${process.env.REACT_APP_API_URL}/cars/all?page=${pageIndex}&brand=${brand}`,
     fetcher
   );
 
@@ -31,9 +30,10 @@ const Home = () => {
       <h1 className="font-bold text-lg text-center p-8 border border-gray-500">
         Explore Cars
       </h1>
-      <div className=" hidden">
-        {nextData} {nextError}
+      <div className="hidden">
+        {JSON.stringify(nextData)} {JSON.stringify(nextError)}
       </div>
+
       <div className="flex flex-col lg:flex-row justify-between my-3">
         <CarsDropdown
           selectHandler={(event) => {

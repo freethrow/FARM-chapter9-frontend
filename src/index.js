@@ -9,6 +9,7 @@ import Home from './components/Home';
 import Dashboard from './components/Dashboard';
 import Report from './components/Report';
 
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>    
@@ -17,7 +18,7 @@ root.render(
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/dashboard" element={<Dashboard />} />     
-          <Route path="/report" element={<Report />} />     
+          <Route path="/report" element={<Report />} />
         </Routes>
         </Layout>
       </BrowserRouter>
